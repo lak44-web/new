@@ -2,7 +2,8 @@ import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from "dotenv";
 import ord from './routes/order.route.js';
-
+import path from 'path';
+import cors from 'cors';
 
 
 
@@ -16,6 +17,9 @@ mongoose.connect(process.env.MONGO).then(() => {
 .catch((err) => {
     console.log(err);
 })
+
+const __dirname = path.resolve();
+app.use(cors());
 const app = express();
 
 app.use(express.json());
@@ -29,7 +33,11 @@ app.listen(3000, () => {
 
 app.use('/api/reco', ord);
 
+app.use(express.static(path.join(__dirname, '/client/dist')));
 
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'));
+  })
 
 
 
