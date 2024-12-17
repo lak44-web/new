@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 import dotenv from "dotenv";
 import ord from './routes/order.route.js';
 import path from 'path';
-import cors from 'cors';
+
 
 
 
@@ -19,7 +19,7 @@ mongoose.connect(process.env.MONGO).then(() => {
 })
 
 const __dirname = path.resolve();
-app.use(cors());
+
 const app = express();
 
 app.use(express.json());
